@@ -1,0 +1,208 @@
+openapi: 3.0.0
+tags:
+    - name: files
+paths:
+    /files/data:
+        get:
+            tags:
+                - files
+            summary: Retrieves a list of files with data
+            description: Retrieves a list of files with data
+            parameters:
+                - in: query
+                  name: fileName
+                  schema:
+                      type: string
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FilesDataList'
+                400:
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 400
+                                message: Invalid specified parameter
+                403:
+                    description: Forbidden
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 403
+                                message: Authenticated user has no permission to access the requested
+                                    resource
+                404:
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 404
+                                message: Specified resource not found
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 500
+                                message: Server error
+                504:
+                    description: Gateway Timeout
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 504
+                                message: Request timeout exceeded
+    /files/list:
+        get:
+            tags:
+                - files
+            summary: Retrieves a list of files
+            description: Retrieves a list of files
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FilesList'
+                400:
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 400
+                                message: Invalid specified parameter
+                403:
+                    description: Forbidden
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 403
+                                message: Authenticated user has no permission to access the requested
+                                    resource
+                404:
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 404
+                                message: Specified resource not found
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 500
+                                message: Server error
+                504:
+                    description: Gateway Timeout
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ExceptionResponse'
+                            example:
+                                code: 504
+                                message: Request timeout exceeded
+components:
+    responses:
+        FilesDataList:
+            description: Success response
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/FilesDataList'
+                    example:
+                        [
+                            file:
+                                "test2.csv",
+                            lines:
+                                [
+                                    {
+                                        "file": "test2.csv",
+                                        "text": "zbUdFwtZhZMadNHIlR",
+                                        "number": "79",
+                                        "hex": "7bf703010db07dfa2d256e621cc8844b"
+                                    },
+                                ]
+                        ]
+        FilesList:
+            description: Success response
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/FilesList'
+                    example:
+                        {
+                            "files": [
+                                "test1.csv",
+                                "test2.csv",
+                                "test3.csv",
+                                "test4.csv",
+                                "test5.csv",
+                                "test6.csv",
+                                "test9.csv"
+                            ]
+                        }
+    schemas:
+        ExceptionResponse:
+            required:
+                - code
+            type: object
+            properties:
+                code:
+                    description: Error code.
+                    type: string
+                    example: INTERNAL
+                message:
+                    description: Error code message.
+                    type: string
+                    example: Server Error
+        FilesDataList:
+            type: array
+            items:
+                type: object
+                properties:
+                    file:
+                        type: string
+                    lines:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                file:
+                                    type: string
+                                text:
+                                    type: string
+                                number:
+                                    type: string
+                                hex:
+                                    type: string
+        FilesList:
+            type: object
+            properties:
+                files:
+                    type: array
+                    items:
+                        type: string

@@ -1,5 +1,12 @@
 # toolbox-backend
-Proyecto destinado a challenge técnico para la empresa Toolbox.
+Technical challenge proyect for Toolbox.
+
+# NPM Install
+For Frontend
+`cd client && npm install`
+
+For Backend
+`npm install`
 
 # API Endpoints
 curl --location --request GET 'http://localhost:4000/v1/files/data' --header 'accept: application/json'
